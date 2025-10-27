@@ -117,7 +117,6 @@ data4tr, toplanan metinleri şu görevlerde AI yardımıyla işler:
 - **Sınıflandırma:** haber, eğitim, teknoloji, kültür vb.  
 - **Temizlik:** imla hatalarını düzeltme, gereksiz ifadeleri ayıklama  
 - **Filtreleme:** spam veya tekrar eden içerikleri çıkarma  
-- **Genişletme (opsiyonel):** kı性别 metinleri anlam bozulmadan zenginleştirme
 + **Genişletme (opsiyonel):** kısa metinleri anlam bozulmadan zenginleştirme
 
 ---
