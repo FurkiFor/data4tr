@@ -1,0 +1,11 @@
+include LICENSE
+include README.md
+include QUICKSTART.md
+include ARCHITECTURE.md
+include requirements.txt
+include pytest.ini
+recursive-include data4tr/config *.yaml
+recursive-include data4tr/exporter *.json
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]
+

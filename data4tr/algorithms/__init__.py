@@ -5,5 +5,4 @@ Matematiksel algoritmalar ve metin metrikleri
 
 from .metrics import TextMetrics
 
-__all__ = ['TextMetrics']
-
+__all__ = ["TextMetrics"]

@@ -8,11 +8,10 @@ from .deduplicate import Deduplicator, remove_exact_duplicates
 from .normalize import TextNormalizer, normalize_batch
 
 __all__ = [
-    'TextClassifier', 
-    'classify_batch',
-    'Deduplicator',
-    'remove_exact_duplicates',
-    'TextNormalizer',
-    'normalize_batch'
+    "TextClassifier",
+    "classify_batch",
+    "Deduplicator",
+    "remove_exact_duplicates",
+    "TextNormalizer",
+    "normalize_batch",
 ]
-

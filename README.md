@@ -73,7 +73,29 @@ data4tr/
 
 ## 🚀 Kullanım
 
-Örnek terminal komutları:
+### Kütüphane Olarak
+
+```python
+# Kurulum
+pip install -e .
+
+# Python kodunuzda kullanın
+import data4tr
+
+# Veri çek
+articles = data4tr.scrape('wikipedia', limit=50)
+
+# Metni sınıflandır
+category = data4tr.classify("Bu bir teknoloji makalesidir.")
+
+# Kalite ölç
+quality = data4tr.quality("İyi bir metin örneği...")
+
+# Temizle
+cleaned = data4tr.clean("<html>Metin</html>")
+```
+
+### CLI Olarak
 
 ```bash
 # 1. Belirli bir kaynaktan veri topla

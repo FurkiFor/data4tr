@@ -5,5 +5,4 @@ Kaynak-specific scraper implementations
 
 from .wikipedia import WikipediaScraper
 
-__all__ = ['WikipediaScraper']
-
+__all__ = ["WikipediaScraper"]
