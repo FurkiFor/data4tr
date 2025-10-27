@@ -1,0 +1,27 @@
+# data4tr - Açık Kaynak Türkçe Veri Kaynakları
+# Bu dosya, izin alınmış ve açık lisanslı web kaynaklarını içerir.
+
+sources:
+  wikipedia:
+    name: "Wikipedia Türkçe"
+    url: "https://tr.wikipedia.org"
+    license: "CC BY-SA 3.0"
+    enabled: true
+    description: "Türkçe Wikipedia makaleleri"
+  
+  aoz:
+    name: "Açık Öğretim Zil"
+    url: "https://acikogretim.istanbul"
+    license: "Eğitim Kullanımı"
+    enabled: false
+    description: "Açık öğretim materyalleri"
+  
+  # Daha fazla kaynak eklenebilir
+  # Örnek: haber siteleri, bloglar, akademik makaleler vb.
+
+# Kaynak eklerken dikkat edilmesi gerekenler:
+# - Telif hakkı ve lisans durumu
+# - robots.txt ve kullanım koşulları
+# - API veya scraping tercihleri
+# - Toplumsal etik ve gizlilik
+

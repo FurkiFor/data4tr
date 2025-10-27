@@ -1,5 +1,9 @@
 # 🇹🇷 data4tr
 
+[![CI Tests](https://github.com/username/data4tr/workflows/CI%20Tests/badge.svg)](https://github.com/username/data4tr/actions)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 **data4tr**, Türkçe metinlerden açık kaynaklı ve etik bir şekilde veri seti oluşturmayı amaçlayan bir projedir.  
 Yapay zekâ desteğiyle metinleri **toplar**, **temizler**, **sınıflandırır** ve **model eğitimine hazır hale getirir**.
 
@@ -21,20 +25,29 @@ Bu proje:
 
 ```
 data4tr/
- ├── scraper/              # Web’den veri toplama modülü
- │   ├── sources.yaml      # İzinli kaynaklar listesi
- │   ├── scraper.py        # Metinleri çeker
- │   └── cleaner.py        # HTML ve karakter temizliği
+ ├── config/               # Konfigürasyon yönetimi
+ │   ├── config.yaml       # Merkezi konfigürasyon dosyası
+ │   └── config.py         # Konfigürasyon yöneticisi
+ │
+ ├── scraper/              # Web'den veri toplama modülü
+ │   ├── base.py           # Abstract base classes
+ │   ├── scraper.py        # Ana scraper
+ │   ├── cleaner.py        # HTML ve karakter temizliği
+ │   └── sources/          # Kaynak-specific scraper'lar
+ │       └── wikipedia.py
  │
  ├── processor/            # AI ile işleme ve etiketleme
  │   ├── classify.py       # Metin türü / konu sınıflandırması
  │   ├── deduplicate.py    # Yinelenen verilerin ayıklanması
  │   └── normalize.py      # İmla ve dil düzenleme
  │
+ ├── algorithms/           # Matematiksel algoritmalar
+ │   └── metrics.py        # Metin metrikleri ve kalite skorları
+ │
  ├── exporter/             # Veri seti dışa aktarma modülü
  │   ├── export_jsonl.py
  │   ├── export_csv.py
- │   └── schema.json
+ │   │   └── schema.json
  │
  ├── data/
  │   ├── raw/              # Ham çekilen metinler
@@ -82,7 +95,103 @@ data4tr, toplanan metinleri şu görevlerde AI yardımıyla işler:
 - **Sınıflandırma:** haber, eğitim, teknoloji, kültür vb.  
 - **Temizlik:** imla hatalarını düzeltme, gereksiz ifadeleri ayıklama  
 - **Filtreleme:** spam veya tekrar eden içerikleri çıkarma  
-- **Genişletme (opsiyonel):** kısa metinleri anlam bozulmadan zenginleştirme  
+- **Genişletme (opsiyonel):** kı性别 metinleri anlam bozulmadan zenginleştirme
+
+---
+
+## 🔬 Matematiksel Algoritmalar
+
+data4tr, veri kalitesini değerlendirmek için gelişmiş algoritmalar kullanır:
+
+### 1. Metin Kalite Skoru (Quality Score)
+
+Her metin için **0-1 arası kalite skoru** hesaplanır:
+
+```
+QS = (LQ + CQ + SQ + PQ) / 4
+```
+
+- **LQ (Length Quality):** Metin uzunluğu kalitesi
+  - Optimum: 100-2000 karakter
+  - Çok kısa veya uzun metinlerde azalır
+
+- **CQ (Character Quality):** Karakter çeşitliliği
+  - Türkçe karakter kullanımı kontrolü
+  - Karakter çeşitliliği ölçümü
+
+- **SQ (Structure Quality):** Yapısal kalite
+  - Cümle uzunluğu analizi
+  - Cümle sayısı değerlendirmesi
+
+- **PQ (Punctuation Quality):** Noktalama kalitesi
+  - Noktalama işareti kullanım oranı
+
+### 2. TF-IDF (Term Frequency-Inverse Document Frequency)
+
+Metinlerin içerik önemini ölçer:
+
+```
+TF(t,d) = kelime_sayısı(t,d) / toplam_kelime_sayısı(d)
+```
+
+```
+IDF(t) = log(N / doküman_sayısı(t_geçen))
+```
+
+```
+TF-IDF(t,d) = TF(t,d) × IDF(t)
+```
+
+**Kullanım:** Benzer konulu metinleri gruplama ve kategori tahmininde kullanılır.
+
+### 3. Cosine Similarity (Kosinüs Benzerliği)
+
+İki metin arasındaki benzerlik ölçümü:
+
+```
+cosine(θ) = (A · B) / (||A|| × ||B||)
+```
+
+**Kullanım:** Duplicate detection ve benzer içerik filtrelemede.
+
+### 4. Jaccard Similarity (Jaccard Benzerliği)
+
+Kelime kümesi benzerliği:
+
+```
+J(A,B) = |A ∩ B| / |A ∪ B|
+```
+
+**Kullanım:** Basit ve hızlı benzerlik hesaplama.
+
+### 5. Metin Karmaşıklığı (Text Complexity)
+
+Metin zorluk seviyesi:
+
+```
+C = 0.4 × (unique_words / total_words) + 
+    0.3 × (avg_word_length / 10) + 
+    0.3 × (sentence_count / 20)
+```
+
+**Kullanım:** Veri setinin hedef kitleye uygunluğunu değerlendirme.
+
+### Algoritma Kullanım Örnekleri
+
+```python
+from algorithms import TextMetrics
+
+metrics = TextMetrics()
+
+# Kalite skoru
+quality = metrics.calculate_quality_score(text)
+
+# Benzerlik ölçümü
+similarity = metrics.jaccard_similarity(text1, text2)
+
+# TF-IDF vektörü
+tfidf = metrics.calculate_tfidf(text, idf_scores)
+```  
 
 ---
 
