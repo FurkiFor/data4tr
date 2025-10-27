@@ -18,30 +18,33 @@ Bu proje:
 ---
 
 ## 🧱 Proje Yapısı
+
+```
 data4tr/
-├── scraper/ # Web’den veri toplama modülü
-│ ├── sources.yaml # İzinli kaynaklar listesi
-│ ├── scraper.py # Metinleri çeker
-│ └── cleaner.py # HTML ve karakter temizliği
-│
-├── processor/ # AI ile işleme ve etiketleme
-│ ├── classify.py # Metin türü / konu sınıflandırması
-│ ├── deduplicate.py # Yinelenen verilerin ayıklanması
-│ └── normalize.py # İmla ve dil düzenleme
-│
-├── exporter/ # Veri seti dışa aktarma modülü
-│ ├── export_jsonl.py
-│ ├── export_csv.py
-│ └── schema.json
-│
-├── data/
-│ ├── raw/ # Ham çekilen metinler
-│ ├── cleaned/ # Temizlenmiş metinler
-│ └── output/ # Nihai veri setleri
-│
-├── cli.py # Komut satırı arayüzü
-├── requirements.txt
-└── README.md
+ ├── scraper/              # Web’den veri toplama modülü
+ │   ├── sources.yaml      # İzinli kaynaklar listesi
+ │   ├── scraper.py        # Metinleri çeker
+ │   └── cleaner.py        # HTML ve karakter temizliği
+ │
+ ├── processor/            # AI ile işleme ve etiketleme
+ │   ├── classify.py       # Metin türü / konu sınıflandırması
+ │   ├── deduplicate.py    # Yinelenen verilerin ayıklanması
+ │   └── normalize.py      # İmla ve dil düzenleme
+ │
+ ├── exporter/             # Veri seti dışa aktarma modülü
+ │   ├── export_jsonl.py
+ │   ├── export_csv.py
+ │   └── schema.json
+ │
+ ├── data/
+ │   ├── raw/              # Ham çekilen metinler
+ │   ├── cleaned/          # Temizlenmiş metinler
+ │   └── output/           # Nihai veri setleri
+ │
+ ├── cli.py                # Komut satırı arayüzü
+ ├── requirements.txt
+ └── README.md
+```
 
 ---
 
@@ -68,22 +71,26 @@ python cli.py process --model gpt-4
 
 # 3. Temizlenmiş veri setini dışa aktar
 python cli.py export --format jsonl
-🧠 Yapay Zekâ Desteği
+```
+
+---
+
+## 🧠 Yapay Zekâ Desteği
 
 data4tr, toplanan metinleri şu görevlerde AI yardımıyla işler:
 
-Sınıflandırma: haber, eğitim, teknoloji, kültür vb.
+- **Sınıflandırma:** haber, eğitim, teknoloji, kültür vb.  
+- **Temizlik:** imla hatalarını düzeltme, gereksiz ifadeleri ayıklama  
+- **Filtreleme:** spam veya tekrar eden içerikleri çıkarma  
+- **Genişletme (opsiyonel):** kısa metinleri anlam bozulmadan zenginleştirme  
 
-Temizlik: imla hatalarını düzeltme, gereksiz ifadeleri ayıklama
+---
 
-Filtreleme: spam veya tekrar eden içerikleri çıkarma
-
-Genişletme (opsiyonel): kısa metinleri anlam bozulmadan zenginleştirme
-
-📊 Üretilen Veri Seti Formatı
+## 📊 Üretilen Veri Seti Formatı
 
 Her veri kaydı aşağıdaki örneğe benzer şekilde saklanır:
 
+```json
 {
   "id": "a94f2c8e",
   "source": "wikipedia",
@@ -91,50 +98,51 @@ Her veri kaydı aşağıdaki örneğe benzer şekilde saklanır:
   "text": "Fotosentez, bitkilerin güneş ışığını enerjiye dönüştürdüğü süreçtir.",
   "cleaned": true
 }
+```
 
-⚖️ Yasal ve Etik İlkeler
+---
+
+## ⚖️ Yasal ve Etik İlkeler
 
 data4tr yalnızca:
+- **Açık lisanslı (CC, MIT, GNU vb.)** içerikleri toplar  
+- **Kamuya açık ve ticari olmayan** verileri işler  
+- **Kişisel veri veya kullanıcı içeriği** barındırmaz  
 
-Açık lisanslı (CC, MIT, GNU vb.) içerikleri toplar
+Amacımız **Türkçe dil modellerinin gelişimini desteklemek**, telif veya gizlilik ihlali yapmak değildir.
 
-Kamuya açık ve ticari olmayan verileri işler
+---
 
-Kişisel veri veya kullanıcı içeriği barındırmaz
+## 🧩 Yol Haritası
 
-Amacımız Türkçe dil modellerinin gelişimini desteklemek, telif veya gizlilik ihlali yapmak değildir.
+- [ ] Yeni açık kaynak sitelerin eklenmesi  
+- [ ] GPT tabanlı özetleme ve genişletme  
+- [ ] HuggingFace veri seti entegrasyonu  
+- [ ] Basit web arayüzü (Streamlit)  
+- [ ] Label Studio entegrasyonu  
 
-🧩 Yol Haritası
+---
 
- Yeni açık kaynak sitelerin eklenmesi
-
- GPT tabanlı özetleme ve genişletme
-
- HuggingFace veri seti entegrasyonu
-
- Basit web arayüzü (Streamlit)
-
- Label Studio entegrasyonu
-
-🤝 Katkı
+## 🤝 Katkı
 
 Katkı yapmak isterseniz:
+1. Repo’yu forklayın  
+2. Yeni bir branch açın  
+3. Kodunuzu ekleyip PR (Pull Request) gönderin  
 
-Repo’yu forklayın
+Topluluk katkılarına tamamen açığız.  
+Kodunuzu gönderirken **etik veri toplama prensiplerine** uymanız yeterlidir.
 
-Yeni bir branch açın
+---
 
-Kodunuzu ekleyip PR (Pull Request) gönderin
+## 📜 Lisans
 
-Topluluk katkılarına tamamen açığız.
-Kodunuzu gönderirken etik veri toplama prensiplerine uymanız yeterlidir.
-
-📜 Lisans
-
-Bu proje MIT Lisansı ile yayımlanmıştır.
+Bu proje **MIT Lisansı** ile yayımlanmıştır.  
 Kodunuzu ve veri setlerinizi özgürce kullanabilir, değiştirebilir ve paylaşabilirsiniz.
 
-💬 İletişim
+---
 
-data4tr topluluğu yakında açık olacak.
+## 💬 İletişim
+
+**data4tr** topluluğu yakında açık olacak.  
 Şimdilik öneri ve katkılarınızı GitHub Issues üzerinden iletebilirsiniz.
