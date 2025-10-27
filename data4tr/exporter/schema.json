@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "data4tr Dataset Schema",
+  "description": "Türkçe veri seti için standart şema",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Benzersiz kayıt ID"
+    },
+    "source": {
+      "type": "string",
+      "description": "Veri kaynağı (örn: wikipedia, haber_sitesi)",
+      "enum": ["wikipedia", "haber", "blog", "other"]
+    },
+    "category": {
+      "type": "string",
+      "description": "Metin kategorisi",
+      "enum": ["bilim", "teknoloji", "edebiyat", "kültür", "tarih", "coğrafya", "sanat", "spor", "ekonomi", "eğitim", "sağlık", "genel"]
+    },
+    "text": {
+      "type": "string",
+      "description": "Ana metin içeriği (temizlenmiş)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Başlık (eğer varsa)"
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Orijinal kaynak URL'i"
+    },
+    "cleaned": {
+      "type": "boolean",
+      "description": "Metin temizlendi mi"
+    },
+    "timestamp": {
+      "type": "number",
+      "description": "Unix timestamp (oluşturulma zamanı)"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Ek meta veriler",
+      "additionalProperties": true
+    }
+  },
+  "required": ["id", "text", "source"]
+}
+

@@ -1,0 +1,116 @@
+# data4tr - Ana Konfigürasyon Dosyası
+# Tüm API URL'leri, ayarlar ve konfigürasyonlar burada tanımlanır
+
+app:
+  name: "data4tr"
+  version: "1.0.0"
+  description: "Türkçe veri seti oluşturma aracı"
+
+# Veri kaynakları konfigürasyonu
+sources:
+  wikipedia:
+    enabled: true
+    name: "Wikipedia Türkçe"
+    license: "CC BY-SA 3.0"
+    api:
+      base_url: "https://tr.wikipedia.org/api/rest_v1"
+      random_page: "/page/random/summary"
+      timeout: 10
+      headers:
+        User-Agent: "data4tr-bot/1.0 (Open Source NLP Dataset Builder)"
+        Accept: "application/json"
+    rate_limit:
+      requests_per_second: 1
+      delay_between_requests: 1.0
+  
+  # Gelecekte eklenecek kaynaklar için örnek
+  example_news:
+    enabled: false
+    name: "Örnek Haber Sitesi"
+    license: "CC BY"
+    api:
+      base_url: "https://example.com/api"
+      endpoint: "/articles"
+      timeout: 30
+      headers:
+        User-Agent: "data4tr-bot/1.0"
+        Authorization: "${API_KEY}"  # Environment variable'dan alınacak
+
+# İşleme konfigürasyonu
+processing:
+  classification:
+    model: "rule-based"  # rule-based, gpt-4, claude, local-llm
+    categories:
+      - bilim
+      - teknoloji
+      - edebiyat
+      - kültür
+      - tarih
+      - coğrafya
+      - sanat
+      - spor
+      - ekonomi
+      - eğitim
+      - sağlık
+      - genel
+  
+  deduplication:
+    enabled: true
+    method: "hash"  # hash, similarity, embedding
+    similarity_threshold: 0.8
+  
+  normalization:
+    enabled: true
+    steps:
+      - remove_urls
+      - clean_html
+      - fix_whitespace
+      - fix_punctuation
+
+# Dışa aktarma konfigürasyonu
+export:
+  default_format: "jsonl"  # jsonl, csv, parquet
+  output_directory: "data/output"
+  file_naming: "${source}_${timestamp}.${format}"
+  
+  jsonl:
+    pretty: false
+    ensure_ascii: false
+  
+  csv:
+    encoding: "utf-8-sig"
+    include_header: true
+
+# AI Model konfigürasyonu (opsiyonel)
+ai_models:
+  openai:
+    enabled: false
+    api_key: "${OPENAI_API_KEY}"
+    model: "gpt-4"
+    base_url: "https://api.openai.com/v1"
+  
+  anthropic:
+    enabled: false
+    api_key: "${ANTHROPIC_API_KEY}"
+    model: "claude-3-opus"
+    base_url: "https://api.anthropic.com/v1"
+  
+  local:
+    enabled: false
+    model_path: "./models"
+    model_name: "turkish-nlp-model"
+
+# Logging konfigürasyonu
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "data4tr.log"
+
+# Dosya yolları
+paths:
+  data_raw: "data/raw"
+  data_cleaned: "data/cleaned"
+  data_output: "data/output"
+  config_dir: "config"
+  sources_file: "scraper/sources.yaml"
+
